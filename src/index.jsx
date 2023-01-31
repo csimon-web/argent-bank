@@ -8,7 +8,7 @@ import Home from './pages/Home'
 import User from './pages/User'
 import SignIn from './pages/SignIn'
 import NoMatch from './pages/NoMatch'
-// // import './styles/index.css'
+import './styles/main.css'
 
 // const router = createBrowserRouter([
 //     {
@@ -61,8 +61,8 @@ root.render(
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user" element={<User />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/user" element={<User />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </div>

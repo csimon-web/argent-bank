@@ -1,9 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 import '../../styles/Navbar.css'
 
 function Navbar() {
+  const location = useLocation()
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -15,22 +17,26 @@ function Navbar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <Link className="main-nav-item" to="/sign-in">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
-      {/* <Link className="main-nav-item" to="/user">
-          <i className="fa fa-user-circle"></i>
-          Tony
-        </Link>
-        <Link className="main-nav-item" to="/">
-          <i className="fa fa-sign-out"></i>
-          Sign Out
-        </Link> */}
+        {location.pathname === '/user' ? (
+          <>
+            <Link className="main-nav-item" to="/user">
+              <i className="fa fa-user-circle" />
+              Tony
+            </Link>
+            <Link className="main-nav-item" to="/">
+              <i className="fa fa-sign-out" />
+              Sign Out
+            </Link>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/sign-in">
+            <i className="fa fa-user-circle" />
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
   )
 }
 
 export default Navbar
-
