@@ -1,37 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import API from '../../services/api.js'
+import { useIsConnected } from '../../utils/authentication.js'
 import '../../styles/SignIn.css'
 
 function SignIn() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const isConnected = useIsConnected()
   const navigate = useNavigate()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  // async function login(e, p) {
+  //   try {
+  //     setLoading(true)
+  //     const response = await API.login(e, p)
+  //     if (response.status === 200) {
+  //       console.log('success')
+  //     } else {
+  //       throw new Error('Erreur de connexion')
+  //     }
+  //   } catch (err) {
+  //     setError(true)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
+    console.log('Email entré:', event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+    console.log('Mot de passe entré:', event.target.value)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      })
-      const data = await response.json()
-      if (data.error) {
-        setError(data.error)
-        return
-      }
-      localStorage.setItem('token', data.token)
-      navigate('/user')
-    } catch (error) {
-      setError('An error occured, please try again later')
+      console.log('Email envoyé:', email)
+      console.log('Password envoyé:', password)
+      await API.login(email, password)
+      setLoading(false)
+    } catch (err) {
+      setError(true)
+      setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/user')
+    }
+  }, [isConnected, navigate])
 
   return (
     <main className="main bg-dark">
@@ -41,12 +67,12 @@ function SignIn() {
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              id="email"
+              name="email"
+              onChange={handleEmailChange}
             />
           </div>
           <div className="input-wrapper">
@@ -54,15 +80,24 @@ function SignIn() {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              onChange={handlePasswordChange}
             />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button type="submit" className="sign-in-button">Sign In</button>
+          {error && (
+            <div className="input-wrapper">
+              <p style={{ color: 'red' }}>
+                Les informations saisies ne sont pas correctes
+              </p>
+            </div>
+          )}
+          <button type="submit" className="sign-in-button" disabled={loading}>
+            {loading ? 'Loading...' : 'Sign In'}
+          </button>
         </form>
       </section>
     </main>
