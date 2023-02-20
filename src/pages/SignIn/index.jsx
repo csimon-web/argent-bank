@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import API from '../../services/api.js'
+import { useDispatch } from 'react-redux'
 import { useIsConnected } from '../../utils/authentication.js'
+import { addUser } from '../../store/userSlice'
+import API from '../../services/api.js'
 import '../../styles/SignIn.css'
 
 function SignIn() {
   const isConnected = useIsConnected()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,22 +34,21 @@ function SignIn() {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
-    console.log('Email entré:', event.target.value)
   }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
-    console.log('Mot de passe entré:', event.target.value)
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     setLoading(true)
     try {
-      console.log('Email envoyé:', email)
-      console.log('Password envoyé:', password)
       await API.login(email, password)
+      setIsConnected(true)
       setLoading(false)
+      navigate('/user')
+      dispatch(addUser())
     } catch (err) {
       setError(true)
       setLoading(false)
@@ -64,7 +66,6 @@ function SignIn() {
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon" />
         <h1>Sign In</h1>
-        {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="email">Email</label>
@@ -90,9 +91,7 @@ function SignIn() {
           </div>
           {error && (
             <div className="input-wrapper">
-              <p style={{ color: 'red' }}>
-                Les informations saisies ne sont pas correctes
-              </p>
+              <p style={{ color: 'red' }}>Information entered is not correct</p>
             </div>
           )}
           <button type="submit" className="sign-in-button" disabled={loading}>

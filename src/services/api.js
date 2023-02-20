@@ -8,18 +8,24 @@ const login = async (email, password) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email,
-        password,
+        email: email,
+        password: password,
       }),
     })
     if (!response.ok) {
       throw new Error(response.statusText)
     }
     const data = await response.json()
-    if (data.token) {
-      localStorage.setItem('isConnected', true);
+    console.log(data)
+
+    if (data.status === 200 && data.body && data.body.token) {
+      const token = data.body.token
+      console.log(token)
+      document.cookie = `jwt=${token};`
+      // document.cookie = `jwt=${token}; Secure; HttpOnly; SameSite=Strict`
+      return { isAuthenticated: true }
     } else {
-      throw new Error('Missing required token')
+      throw new Error('Missing or invalid required token')
     }
   } catch (error) {
     throw error
@@ -28,11 +34,14 @@ const login = async (email, password) => {
 
 const getUserData = async () => {
   try {
-    const token = localStorage.getItem('token')
-    if (!token) {
+    const jwtCookie = document.cookie
+      .split(';')
+      .find((cookie) => cookie.startsWith('jwt='))
+    if (!jwtCookie) {
       throw new Error('Not authenticated')
     }
-    const response = await fetch(`${API_URL}/user`, {
+    const token = jwtCookie.split('=')[1]
+    const response = await fetch(`${API_URL}/user/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -40,7 +49,9 @@ const getUserData = async () => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
-    return await response.json()
+    const data = await response.json()
+    console.log(data)
+    return data.body
   } catch (error) {
     throw error
   }

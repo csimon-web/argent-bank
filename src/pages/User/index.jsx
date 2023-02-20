@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useIsConnected } from '../../utils/authentication.js'
 import '../../styles/User.css'
@@ -6,16 +6,32 @@ import '../../styles/User.css'
 function User() {
   const navigate = useNavigate()
   const isConnected = useIsConnected()
+  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    if (!isConnected) {
-      navigate('/sign-in')
-    }
-  }, [isConnected, navigate])
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const token = localStorage.getItem('token')
+  //       if (!token) {
+  //         throw new Error('Not authenticated')
+  //       }
+  //       // Add code here to verify the token with your API
+  //       setIsLoading(false)
+  //     } catch (error) {
+  //       setIsLoading(false)
+  //       navigate('/sign-in')
+  //     }
+  //   }
+  //   checkAuth()
+  // }, [navigate])
 
-  if (!isConnected) {
-    return null
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>
+  // }
+
+  // if (!isConnected) {
+  //   return <div>You are not authenticated.</div>
+  // }
 
   return (
     <main className="main bg-dark">

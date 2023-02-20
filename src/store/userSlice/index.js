@@ -4,16 +4,29 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
     user: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: ""
+      id: '',
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
     },
   },
   reducers: {
-    setUser: (state, action) => {
-      state.user.email = action.payload.email
-      state.user.token = action.payload.token
+    addUser: (currentSlice) => {
+      currentSlice.userSlice.push({
+        id: 01,
+        email: 'qf@qf.com',
+        password: 'qdfq',
+        firstName: 'Jean',
+        lastName: 'Dupont',
+      })
     },
+    // setUser: (state, action) => {
+    //   state.user.email = action.payload.email
+    //   state.user.token = action.payload.token
+    // },
   },
 })
+
+const { addUser,  } = userSlice.actions
+export { addUser }
