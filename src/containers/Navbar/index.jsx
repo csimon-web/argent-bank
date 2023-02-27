@@ -1,23 +1,31 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 // import { authActions } from '../../store'
-import { useIsConnected } from '../../utils/authentication.js'
-import { logout } from '../../utils/logout.js'
+import { useIsConnected, logout } from '../../utils/connection.js'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 import '../../styles/Navbar.css'
 
 function Navbar() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const isConnected = useIsConnected()
+  const user = useSelector((store) => store.user.user)
   // const dispatch = useDispatch()
 
   // const authUser = useSelector((state) => state.auth.user)
 
   const handleLogout = () => {
     logout()
-    const navigate = useNavigate()
     navigate('/')
+  }
+
+  if (
+    !isConnected &&
+    (location.pathname !== '/' || location.pathname !== '/sign-in')
+  ) {
+    navigate('/sign-in')
+    return null
   }
 
   return (
@@ -35,7 +43,7 @@ function Navbar() {
           <>
             <Link className="main-nav-item" to="/user">
               <i className="fa fa-user-circle" />
-              Tony
+              {user.firstName}
             </Link>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
               <i className="fa fa-sign-out" />

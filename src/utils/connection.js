@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { addToken, removeToken, getToken, hasToken } from './security.js'
 
 function useIsConnected() {
   const [isConnected, setIsConnected] = useState(false)
@@ -48,4 +49,8 @@ function useIsConnected() {
   return isConnected
 }
 
-export { useIsConnected }
+function logout() {
+  removeToken()
+}
+
+export { useIsConnected, logout }

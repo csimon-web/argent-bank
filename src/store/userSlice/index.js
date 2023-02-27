@@ -3,30 +3,37 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
-    user: {
-      id: '',
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-    },
+    usersList: [
+      {
+        id: 0,
+        email: 'QSD@QSDF.COM',
+        firstName: 'QSDF',
+        lastName: 'QDF',
+        isConnected: false,
+      },
+    ],
+    user: {},
   },
   reducers: {
-    addUser: (currentSlice) => {
-      currentSlice.userSlice.push({
-        id: 01,
+    addUser: (currentSlice, action) => {
+      currentSlice.usersList.push({
+        id: 1,
         email: 'qf@qf.com',
-        password: 'qdfq',
         firstName: 'Jean',
         lastName: 'Dupont',
+        isConnected: true,
       })
+      console.log('addUser()', action)
     },
-    // setUser: (state, action) => {
-    //   state.user.email = action.payload.email
-    //   state.user.token = action.payload.token
-    // },
+    setUser: (currentSlice, action) => {
+      currentSlice.user.id = action.payload.id
+      currentSlice.user.email = action.payload.email
+      currentSlice.user.firstName = action.payload.firstName
+      currentSlice.user.lastName = action.payload.lastName
+      currentSlice.user.isConnected = true
+    },
   },
 })
 
-const { addUser,  } = userSlice.actions
-export { addUser }
+const { addUser, setUser } = userSlice.actions
+export { addUser, setUser }

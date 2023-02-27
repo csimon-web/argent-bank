@@ -10,7 +10,7 @@ import {
 import { Provider } from 'react-redux'
 import { store } from './store'
 
-import Navbar from './components/Navbar'
+import Navbar from './containers/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import User from './pages/User'
