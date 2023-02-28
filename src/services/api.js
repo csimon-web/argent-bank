@@ -1,4 +1,4 @@
-import { addToken, getToken } from '../utils/security.js'
+import { addToken, getToken } from '../utils/security'
 
 const API_URL = 'http://localhost:3001/api/v1'
 

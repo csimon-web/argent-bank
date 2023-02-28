@@ -1,30 +1,12 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
-    usersList: [
-      {
-        id: 0,
-        email: 'QSD@QSDF.COM',
-        firstName: 'QSDF',
-        lastName: 'QDF',
-        isConnected: false,
-      },
-    ],
     user: {},
   },
   reducers: {
-    addUser: (currentSlice, action) => {
-      currentSlice.usersList.push({
-        id: 1,
-        email: 'qf@qf.com',
-        firstName: 'Jean',
-        lastName: 'Dupont',
-        isConnected: true,
-      })
-      console.log('addUser()', action)
-    },
     setUser: (currentSlice, action) => {
       currentSlice.user.id = action.payload.id
       currentSlice.user.email = action.payload.email
@@ -32,8 +14,15 @@ export const userSlice = createSlice({
       currentSlice.user.lastName = action.payload.lastName
       currentSlice.user.isConnected = true
     },
+    removeUser: (currentSlice) => {
+      currentSlice.user.id = ''
+      currentSlice.user.email = ''
+      currentSlice.user.firstName = ''
+      currentSlice.user.lastName = ''
+      currentSlice.user.isConnected = false
+    },
   },
 })
 
-const { addUser, setUser } = userSlice.actions
-export { addUser, setUser }
+const { setUser, removeUser } = userSlice.actions
+export { setUser, removeUser }

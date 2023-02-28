@@ -1,12 +1,6 @@
 import React from 'react'
-import ReactDOM, { createRoot } from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  BrowserRouter,
-  Route,
-  Routes,
-} from 'react-router-dom'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './store'
 

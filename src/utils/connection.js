@@ -1,56 +1,38 @@
-import { useState, useEffect } from 'react'
-import { addToken, removeToken, getToken, hasToken } from './security.js'
+import { removeToken, hasToken } from './security'
+import API from '../services/api'
+import { setUser, removeUser } from '../store/userSlice'
 
-function useIsConnected() {
-  const [isConnected, setIsConnected] = useState(false)
-
-  useEffect(() => {
-    // Fonction qui vérifie si le cookie jwt existe et le récupère s'il existe
-    const getTokenFromCookie = () => {
-      const jwtCookie = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('jwt='))
-
-      if (jwtCookie) {
-        const token = jwtCookie.split('=')[1]
-        return token
-      }
-
-      return null
+export const login = async (email, password, dispatch) => {
+  await API.login(email, password)
+  const fetchData = async () => {
+    try {
+      const data = await API.getUserData()
+      dispatch(
+        setUser({
+          id: data.id,
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          isConnected: true,
+        })
+      )
+    } catch (e) {
+      return e
     }
+  }
 
-    // Vérification du cookie jwt
-    const token = getTokenFromCookie()
-    if (token) {
-      setIsConnected(true)
-    } else {
-      setIsConnected(false)
-    }
-
-    // Écoute des changements de cookie
-    const handleStorageChange = (event) => {
-      if (event.key === 'jwt') {
-        const newToken = event.newValue
-        if (newToken) {
-          setIsConnected(true)
-        } else {
-          setIsConnected(false)
-        }
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
-
-  return isConnected
+  fetchData()
 }
 
-function logout() {
+export const logout = (dispatch) => {
   removeToken()
+  dispatch(removeUser())
 }
 
-export { useIsConnected, logout }
+export const isConnected = (user) => {
+  if (hasToken() && user.isConnected) {
+    return true
+  }
+  logout()
+  return false
+}

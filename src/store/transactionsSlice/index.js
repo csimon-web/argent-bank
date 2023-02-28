@@ -6,3 +6,4 @@ export const transactionsSlice = createSlice({
     transactionsList: [],
   },
 })
+

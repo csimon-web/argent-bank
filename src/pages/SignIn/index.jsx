@@ -1,13 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useIsConnected } from '../../utils/connection.js'
-import { addUser } from '../../store/userSlice'
-import API from '../../services/api.js'
+import { login } from '../../containers/Navbar'
+import { setUser } from '../../store/userSlice'
+import API from '../../services/api'
 import '../../styles/SignIn.css'
 
 function SignIn() {
-  const isConnected = useIsConnected()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -15,22 +15,6 @@ function SignIn() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  // async function login(e, p) {
-  //   try {
-  //     setLoading(true)
-  //     const response = await API.login(e, p)
-  //     if (response.status === 200) {
-  //       console.log('success')
-  //     } else {
-  //       throw new Error('Erreur de connexion')
-  //     }
-  //   } catch (err) {
-  //     setError(true)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
@@ -44,12 +28,7 @@ function SignIn() {
     event.preventDefault()
     setLoading(true)
     try {
-      await API.login(email, password)
-      console.log('on est logué')
-      //setIsConnected(true)
-      // dispatch(addUser())
-      // console.log('token: ', token)
-      // addToken(token)
+      await login(email, password, dispatch)
       setLoading(false)
       navigate('/user')
     } catch (err) {
@@ -58,11 +37,11 @@ function SignIn() {
     }
   }
 
-  useEffect(() => {
-    if (isConnected) {
-      navigate('/user')
-    }
-  }, [isConnected, navigate])
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     navigate('/user')
+  //   }
+  // }, [isConnected, navigate])
 
   return (
     <main className="main bg-dark">

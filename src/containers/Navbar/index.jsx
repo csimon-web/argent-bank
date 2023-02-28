@@ -1,32 +1,38 @@
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-// import { authActions } from '../../store'
-import { useIsConnected, logout } from '../../utils/connection.js'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, isConnected } from '../../utils/connection'
+// import { setUser } from '../../store/userSlice'
+
+// import { removeToken, hasToken } from '../../utils/security'
+// import API from '../../services/api'
+import { setUser, removeUser } from '../../store/userSlice'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 import '../../styles/Navbar.css'
 
 function Navbar() {
-  const location = useLocation()
+  // const location = useLocation()
   const navigate = useNavigate()
-  const isConnected = useIsConnected()
+  const dispatch = useDispatch()
   const user = useSelector((store) => store.user.user)
-  // const dispatch = useDispatch()
 
-  // const authUser = useSelector((state) => state.auth.user)
-
-  const handleLogout = () => {
-    logout()
+  const handleLogout = (dispatch) => {
+    logout(dispatch)
     navigate('/')
   }
 
-  if (
-    !isConnected &&
-    (location.pathname !== '/' || location.pathname !== '/sign-in')
-  ) {
-    navigate('/sign-in')
-    return null
-  }
+  // if (location.pathname === '/user') {
+  //   navigate('/sign-in')
+  //   return null
+  // }
+
+  // if (
+  //   !isConnected &&
+  //   (location.pathname !== '/' || location.pathname !== '/sign-in')
+  // ) {
+  //   navigate('/sign-in')
+  //   return null
+  // }
 
   return (
     <nav className="main-nav">
@@ -39,7 +45,7 @@ function Navbar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        {isConnected ? (
+        {isConnected(user) ? (
           <>
             <Link className="main-nav-item" to="/user">
               <i className="fa fa-user-circle" />

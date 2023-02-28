@@ -1,40 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useIsConnected } from '../../utils/connection.js'
-import { hasToken } from '../../utils/security.js'
-import API from '../../services/api.js'
-import { addUser, setUser } from '../../store/userSlice'
+// import { useIsConnected } from '../../containers/Connection/index.jsx'
+// import { hasToken } from '../../utils/security.js'
+// import API from '../../services/api.js'
+import { isConnected } from '../../utils/connection'
 import UserHeader from '../../containers/UserHeader'
+import { addUser, setUser } from '../../store/userSlice'
 import '../../styles/User.css'
 
 function User() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const isConnected = useIsConnected()
   const [isLoading, setIsLoading] = useState(true)
 
-  if (hasToken()) {
-    const fetchData = async () => {
-      try {
-        const data = await API.getUserData()
-        dispatch(
-          setUser({
-            id: data.id,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            isConnected: true,
-          })
-        )
-        // dispatch(setUser())
-      } catch (error) {
-        console.error(error)
-        // handle error
-      }
-    }
-    fetchData()
-  }
+  // if (hasToken()) {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await API.getUserData()
+  //       dispatch(
+  //         setUser({
+  //           id: data.id,
+  //           email: data.email,
+  //           firstName: data.firstName,
+  //           lastName: data.lastName,
+  //           isConnected: true,
+  //         })
+  //       )
+  //       // dispatch(setUser())
+  //     } catch (error) {
+  //       console.error(error)
+  //       // handle error
+  //     }
+  //   }
+  //   fetchData()
+  // }
 
   // useEffect(() => {
   //   const checkAuth = async () => {
