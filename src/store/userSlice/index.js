@@ -4,7 +4,13 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
-    user: {},
+    user: {
+      id: null,
+      email: null,
+      firstName: null,
+      lastName: null,
+      isConnected: false,
+    },
   },
   reducers: {
     setUser: (currentSlice, action) => {
@@ -15,10 +21,10 @@ export const userSlice = createSlice({
       currentSlice.user.isConnected = true
     },
     removeUser: (currentSlice) => {
-      currentSlice.user.id = ''
-      currentSlice.user.email = ''
-      currentSlice.user.firstName = ''
-      currentSlice.user.lastName = ''
+      currentSlice.user.id = null
+      currentSlice.user.email = null
+      currentSlice.user.firstName = null
+      currentSlice.user.lastName = null
       currentSlice.user.isConnected = false
     },
   },

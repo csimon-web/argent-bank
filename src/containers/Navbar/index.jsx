@@ -16,8 +16,8 @@ function Navbar() {
   const dispatch = useDispatch()
   const user = useSelector((store) => store.user.user)
 
-  const handleLogout = (dispatch) => {
-    logout(dispatch)
+  const handleLogout = () => {
+    logout()
     navigate('/')
   }
 
@@ -45,7 +45,7 @@ function Navbar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        {isConnected(user) ? (
+        {isConnected() ? (
           <>
             <Link className="main-nav-item" to="/user">
               <i className="fa fa-user-circle" />

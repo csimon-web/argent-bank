@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login } from '../../containers/Navbar'
+import { login } from '../../utils/connection'
 import { setUser } from '../../store/userSlice'
 import API from '../../services/api'
 import '../../styles/SignIn.css'
@@ -28,7 +28,7 @@ function SignIn() {
     event.preventDefault()
     setLoading(true)
     try {
-      await login(email, password, dispatch)
+      await login(email, password)
       setLoading(false)
       navigate('/user')
     } catch (err) {
