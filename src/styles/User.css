@@ -35,7 +35,15 @@
     flex: 1;
   }
   
-  .edit-button {
+  .form-container {
+    padding-top: 2rem;
+  }
+
+  .form-row {
+    margin-bottom: 1rem;
+  }
+
+  .edit-button, .save-button, .cancel-button {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;

@@ -1,6 +1,6 @@
 import { removeToken, hasToken } from './security'
 import API from '../services/api'
-import store from '../store'
+import { store } from '../store'
 import { setUser, removeUser } from '../store/userSlice'
 
 export const login = async (email, password) => {
@@ -19,38 +19,37 @@ export const login = async (email, password) => {
   } catch (e) {
     return e
   }
-  // const fetchData = async () => {
-  //   try {
-  //     const data = await API.getUserData()
-  //     dispatch(
-  //       setUser({
-  //         id: data.id,
-  //         email: data.email,
-  //         firstName: data.firstName,
-  //         lastName: data.lastName,
-  //         isConnected: true,
-  //       })
-  //     )
-  //   } catch (e) {
-  //     return e
-  //   }
-  // }
-
-  // fetchData()
 }
 
 export const logout = () => {
   removeToken()
-  // store.dispatch(removeUser())
+  store.dispatch(removeUser())
 }
 
 export const isConnected = () => {
-  const state = store.userSlice.getState()
+  const state = store.getState()
   const { user } = state
-  console.log(user)
-  //   if (hasToken() && state.user.isConnected) {
-  //     return true
-  //   }
-  // logout()
-  // return false
+  if (user && user.user.isConnected) {
+    return true
+  }
+  logout()
+  return false
+}
+
+export const updateName = async (firstName, lastName) => {
+  try {
+    const user = await API.getUserData()
+    await API.updateUserData(firstName, lastName)
+    store.dispatch(
+      setUser({
+        id: user.id,
+        email: user.email,
+        firstName: firstName,
+        lastName: lastName,
+        isConnected: true,
+      })
+    )
+  } catch (e) {
+    return e
+  }
 }

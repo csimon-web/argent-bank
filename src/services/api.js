@@ -35,11 +35,9 @@ const login = async (email, password) => {
       throw new Error(response.statusText)
     }
     const data = await response.json()
-    console.log(data)
 
     if (data.status === 200 && data.body && data.body.token) {
       const token = data.body.token
-      console.log(token)
       addToken(token)
       return { isAuthenticated: true }
     } else {
@@ -86,7 +84,34 @@ const getUserData = async () => {
       throw new Error(response.statusText)
     }
     const data = await response.json()
-    console.log('Data de getUserData:', data)
+    return data.body
+  } catch (error) {
+    throw error
+  }
+}
+
+const updateUserData = async (firstName, lastName) => {
+  try {
+    const token = getToken()
+    if (!token) {
+      throw new Error('Not authenticated')
+    }
+    const response = await fetch(`${API_URL}/user/profile`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+      }),
+    })
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    const data = await response.json()
     return data.body
   } catch (error) {
     throw error
@@ -96,4 +121,5 @@ const getUserData = async () => {
 export default {
   login,
   getUserData,
+  updateUserData,
 }

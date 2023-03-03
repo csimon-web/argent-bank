@@ -57,7 +57,7 @@ function User() {
   //   return <div>Loading...</div>
   // }
 
-  // if (!isConnected) {
+  // if (!isConnected()) {
   //   return <div>You are not authenticated.</div>
   // }
 
