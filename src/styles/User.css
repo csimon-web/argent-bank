@@ -43,6 +43,10 @@
     margin-bottom: 1rem;
   }
 
+  input[type="text"] {
+    padding: 5px;
+  }
+
   .edit-button, .save-button, .cancel-button {
     border-color: #00bc77;
     background-color: #00bc77;

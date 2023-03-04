@@ -1,65 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-// import { useIsConnected } from '../../containers/Connection/index.jsx'
-// import { hasToken } from '../../utils/security.js'
-// import API from '../../services/api.js'
-import { isConnected } from '../../utils/connection'
+import React, { useState, useEffect } from 'react'
+import { isConnected, mountData } from '../../utils/connection'
 import UserHeader from '../../containers/UserHeader'
-import { addUser, setUser } from '../../store/userSlice'
 import '../../styles/User.css'
 
 function User() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
 
-  // if (hasToken()) {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await API.getUserData()
-  //       dispatch(
-  //         setUser({
-  //           id: data.id,
-  //           email: data.email,
-  //           firstName: data.firstName,
-  //           lastName: data.lastName,
-  //           isConnected: true,
-  //         })
-  //       )
-  //       // dispatch(setUser())
-  //     } catch (error) {
-  //       console.error(error)
-  //       // handle error
-  //     }
-  //   }
-  //   fetchData()
-  // }
+  useEffect(() => {
+    const loadData = async () => {
+      await mountData()
+      setIsLoading(false)
+    }
+    loadData()
+  }, [])
 
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const token = localStorage.getItem('token')
-  //       if (!token) {
-  //         throw new Error('Not authenticated')
-  //       }
-  //       // Add code here to verify the token with your API
-  //       setIsLoading(false)
-  //     } catch (error) {
-  //       setIsLoading(false)
-  //       navigate('/sign-in')
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [navigate])
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>
-  // }
-
-  // if (!isConnected()) {
-  //   return <div>You are not authenticated.</div>
-  // }
+  if (!isConnected()) {
+    return <div>You are not authenticated.</div>
+  }
 
   return (
     <main className="main bg-dark">
@@ -72,7 +33,9 @@ function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button type="button" className="transaction-button">
+            View transactions
+          </button>
         </div>
       </section>
       <section className="account">
@@ -82,7 +45,9 @@ function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button type="button" className="transaction-button">
+            View transactions
+          </button>
         </div>
       </section>
       <section className="account">
@@ -92,7 +57,9 @@ function User() {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button type="button" className="transaction-button">
+            View transactions
+          </button>
         </div>
       </section>
     </main>

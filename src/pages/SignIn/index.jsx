@@ -1,20 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { login } from '../../utils/connection'
-import { setUser } from '../../store/userSlice'
-import API from '../../services/api'
 import '../../styles/SignIn.css'
 
 function SignIn() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
@@ -24,24 +21,42 @@ function SignIn() {
     setPassword(event.target.value)
   }
 
+  const handleRememberMeChange = (event) => {
+    setRememberMe(event.target.checked)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     setLoading(true)
     try {
-      await login(email, password)
+      const response = await login(email, password)
+      if (response.status === 200) {
+        navigate('/user')
+      } else {
+        setError(true)
+      }
       setLoading(false)
-      navigate('/user')
     } catch (err) {
       setError(true)
       setLoading(false)
     }
   }
 
-  // useEffect(() => {
-  //   if (isConnected) {
-  //     navigate('/user')
-  //   }
-  // }, [isConnected, navigate])
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('rememberedEmail')
+    if (storedEmail) {
+      setEmail(storedEmail)
+      setRememberMe(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (rememberMe) {
+      localStorage.setItem('rememberedEmail', email)
+    } else {
+      localStorage.removeItem('rememberedEmail')
+    }
+  }, [rememberMe, email])
 
   return (
     <main className="main bg-dark">
@@ -56,6 +71,7 @@ function SignIn() {
               id="email"
               name="email"
               onChange={handleEmailChange}
+              value={email}
             />
           </div>
           <div className="input-wrapper">
@@ -68,7 +84,12 @@ function SignIn() {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={handleRememberMeChange}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {error && (
