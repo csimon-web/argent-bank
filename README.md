@@ -1,8 +1,103 @@
-# Getting Started with Create React App
+<!-- PROJECT SHIELDS -->
+<!--
+*** This template uses markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url]
 
-## Available Scripts
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Argentbank app Screen Shot][product-screenshot]]
+
+This project was realized during my training as a javascript/react developer for a fictitious company wanting to create a bank application.
+
+This web application had to respect [a given mock up](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/designs).
+
+It had to be developed with React and Redux, and use the data about the bank user from an API.
+
+
+
+### Built With
+
+- Markdown, Html, Css, Javascript
+- React
+- Git, Github
+- VS Code
+- Love :)
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- Git
+- Npm
+- Node
+- Mongodb
+
+### Installation
+ 
+1. Open a terminal and launch "mongod"
+
+2. Clone the repo of the back end project
+```sh
+git clone https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git
+```
+
+3. Go to this back end project directory
+```sh
+cd Project-10-Bank-API
+```
+
+4. Install the dependencies of this project
+```sh
+npm install
+```
+
+5. Launch this back end project
+```sh
+npm run dev:server
+```
+
+6. At first use, populate the database with 2 users
+```sh
+npm run populate-db
+```
+
+7. Return to the parent directory
+```sh
+cd ..
+```
+
+8. Clone this repo
+```sh
+git clone https://github.com/christophe-simon/argentbank.git
+```
+
+9. Go to this project directory
+```sh
+cd argentbank
+```
+
+10. Install the dependencies of this project
+```sh
+npm install
+```
+
+11. Launch this project
+```sh
+npm run start
+```
+
+<!-- USAGE EXAMPLES -->
+## Usage
 
 In the project directory, you can run:
 
@@ -68,3 +163,38 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Christophe Simon: [personnal website](https://www.csimon.info)
+
+Project Link: [https://github.com/christophe-simon/argentbank](https://github.com/christophe-simon/argentbank)
+
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+
+- This readme version is a simplified version of this [github repository](https://github.com/othneildrew/Best-README-Template) by Othneildrew
+- This readme version is a customized version of this [github repository](https://github.com/NicolasBrondin/basic-readme-template) by NicolasBrondin
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/christophe-simon/argentbank.svg?style=flat-square
+[contributors-url]: https://github.com/christophe-simon/argentbank/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/christophe-simon/argentbank.svg?style=flat-square
+[forks-url]: https://github.com/christophe-simon/argentbank/network/members
+[stars-shield]: https://img.shields.io/github/stars/christophe-simon/argentbank.svg?style=flat-square
+[stars-url]: https://github.com/christophe-simon/argentbank/stargazers
+[issues-shield]: https://img.shields.io/github/issues/christophe-simon/argentbank.svg?style=flat-square
+[issues-url]: https://github.com/christophe-simon/argentbank/issues
+[license-shield]: https://img.shields.io/github/license/christophe-simon/argentbank.svg?style=flat-square
+[license-url]: https://github.com/christophe-simon/argentbank/blob/master/LICENSE.txt
+[product-screenshot]: docs/screenshot.jpg

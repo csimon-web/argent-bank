@@ -1,7 +1,7 @@
 import { removeToken, hasToken } from './security'
 import API from '../services/api'
 import { store } from '../store'
-import { setUser, removeUser } from '../store/userSlice'
+import { setUser } from '../store/userSlice'
 
 export const login = async (email, password) => {
   try {
@@ -24,7 +24,7 @@ export const login = async (email, password) => {
 
 export const logout = () => {
   removeToken()
-  store.dispatch(removeUser())
+  // store.dispatch(removeUser())
 }
 
 export const isConnected = () => {
