@@ -17,8 +17,9 @@ body {
   flex: 1;
 }
 
-.bg-dark {
-  background-color: #12002b;
+.bg {
+  background-color: #dde1ea;
+  padding: 30px 0 150px 0;
 }
 
 .sr-only {

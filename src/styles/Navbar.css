@@ -7,20 +7,11 @@
 
 .main-nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #46535c;
 }
 
 .main-nav a.router-link-exact-active {
   color: #42b983;
-}
-
-.main-nav-item {
-  text-decoration: none;
-  margin-right: 0.5rem;
-}
-
-.main-nav-item:hover {
-  text-decoration: underline;
 }
 
 .main-nav-logo {
@@ -32,3 +23,45 @@
   max-width: 100%;
   width: 200px;
 }
+
+.main-nav-items {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.main-nav-item:nth-child(1) {
+  margin-right: 40px;
+}
+
+.main-nav-item:hover {
+  text-decoration: underline;
+}
+
+.main-nav-item i {
+  font-size: 1.5rem;
+}
+
+.main-nav-item span:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+}
+
+.main-nav-item:nth-child(1) span:nth-child(1) {
+  background-color: #dde1ea;
+  border-radius: 50%;
+}
+
+.main-nav-item:nth-child(1) span:nth-child(2) {
+  margin-left: 10px;
+}
+

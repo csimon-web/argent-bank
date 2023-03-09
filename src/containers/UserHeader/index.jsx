@@ -29,32 +29,41 @@ function UserHeader() {
   )
 
   const saveButton = (
-    <button type="button" className="save-button" onClick={handleSaveName}>
-      Save
-    </button>
+    <div className="form-left-cell">
+      <button type="button" className="save-button" onClick={handleSaveName}>
+        Save
+      </button>
+    </div>
   )
 
   const cancelButton = (
-    <button type="button" className="cancel-button" onClick={handleCancel}>
-      Cancel
-    </button>
+    <div className="form-right-cell">
+      <button type="button" className="cancel-button" onClick={handleCancel}>
+        Cancel
+      </button>
+    </div>
   )
 
   return (
     <div className="header">
       {isEditing ? (
         <div className="form-container">
-          <div className="form-row">
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
+          <h1>Welcome back</h1>
+          <div className="form-row inputs">
+            <div className="form-left-cell">
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="form-right-cell">
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
           </div>
           <div className="form-row">
             {saveButton}
@@ -65,6 +74,7 @@ function UserHeader() {
         <>
           <h1>
             Welcome back
+            <br />
             <br />
             {user.firstName} {user.lastName}!
           </h1>

@@ -1,38 +1,19 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { logout, isConnected } from '../../utils/connection'
-// import { setUser } from '../../store/userSlice'
-
-// import { removeToken, hasToken } from '../../utils/security'
-// import API from '../../services/api'
-import { setUser, removeUser } from '../../store/userSlice'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 import '../../styles/Navbar.css'
 
 function Navbar() {
   // const location = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const user = useSelector((store) => store.user.user)
 
   const handleLogout = () => {
     logout()
     navigate('/')
   }
-
-  // if (location.pathname === '/user') {
-  //   navigate('/sign-in')
-  //   return null
-  // }
-
-  // if (
-  //   !isConnected &&
-  //   (location.pathname !== '/' || location.pathname !== '/sign-in')
-  // ) {
-  //   navigate('/sign-in')
-  //   return null
-  // }
 
   return (
     <nav className="main-nav">
@@ -44,22 +25,28 @@ function Navbar() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div className="main-nav-items">
         {isConnected() ? (
           <>
             <Link className="main-nav-item" to="/user">
-              <i className="fa fa-user-circle" />
-              {user.firstName}
+              <span>
+                <i className="fa-solid fa-user" />
+              </span>
+              <span>{user.firstName}</span>
             </Link>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-sign-out" />
-              Sign Out
+              <span>
+                <i className="fa fa-sign-out" />
+              </span>
+              <span>Sign Out</span>
             </Link>
           </>
         ) : (
           <Link className="main-nav-item" to="/sign-in">
-            <i className="fa fa-user-circle" />
-            Sign In
+            <span>
+              <i className="fa-solid fa-user" />
+            </span>
+            <span>Sign In</span>
           </Link>
         )}
       </div>
