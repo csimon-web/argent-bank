@@ -73,10 +73,10 @@ function UserHeader() {
       ) : (
         <>
           <h1>
-            Welcome back
-            <br />
-            <br />
-            {user.firstName} {user.lastName}!
+            <div className="welcome-message">Welcome back</div>
+            <div className="userName">
+              {user.firstName} {user.lastName}!
+            </div>
           </h1>
           {editButton}
         </>

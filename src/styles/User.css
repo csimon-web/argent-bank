@@ -78,6 +78,10 @@
     color: #28303b;
     margin-bottom: 2rem;
   }
+
+  .welcome-message {
+    margin-bottom: 1rem;
+  }
   
   .transaction-button {
     display: block;

@@ -28,25 +28,29 @@ function Navbar() {
       <div className="main-nav-items">
         {isConnected() ? (
           <>
-            <Link className="main-nav-item" to="/user">
+            <Link className="main-nav-item user" to="/user">
               <span>
                 <i className="fa-solid fa-user" />
               </span>
               <span>{user.firstName}</span>
             </Link>
-            <Link className="main-nav-item" to="/" onClick={handleLogout}>
+            <Link
+              className="main-nav-item sign-out"
+              to="/"
+              onClick={handleLogout}
+            >
               <span>
-                <i className="fa fa-sign-out" />
+                <i className="fa-sharp fa-solid fa-right-from-bracket" />
               </span>
-              <span>Sign Out</span>
+              <span>Sign out</span>
             </Link>
           </>
         ) : (
-          <Link className="main-nav-item" to="/sign-in">
+          <Link className="main-nav-item sign-in" to="/sign-in">
             <span>
-              <i className="fa-solid fa-user" />
+              <i className="fa-sharp fa-solid fa-right-to-bracket" />
             </span>
-            <span>Sign In</span>
+            <span>Sign in</span>
           </Link>
         )}
       </div>
